@@ -6,3 +6,5 @@ go.work.sum
 
 .build
 .env
+licenses.tpl
+.license-report

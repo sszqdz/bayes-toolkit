@@ -19,7 +19,7 @@ func (c *Conn[T]) readLoop() {
 			normal := false
 			if e, ok := err.(*websocket.CloseError); ok {
 				code = e.Code
-				normal = websocket.IsCloseError(err, websocket.CloseNormalClosure, websocket.CloseGoingAway) // 正常关闭
+				normal = websocket.IsCloseError(err, websocket.CloseNormalClosure, websocket.CloseGoingAway) // Close normally
 			}
 			c.handleMessageErr(c, normal, err)
 			return

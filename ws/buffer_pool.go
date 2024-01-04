@@ -46,7 +46,7 @@ func getBuffer() *bytes.Buffer {
 func putBuffer(buffer *bytes.Buffer) {
 	if poolUsed && buffer != nil {
 		cap := buffer.Cap()
-		if cap <= maxBufferSize && cap >= defaultBufferSize { // 防止超大和过小 []byte 入池
+		if cap <= maxBufferSize && cap >= defaultBufferSize { // Prevents oversize and undersize []byte pooling
 			buffer.Reset()
 			bufferPool.Put(buffer)
 		}

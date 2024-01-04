@@ -38,12 +38,12 @@ func (e ENV) String() string {
 }
 
 func extractEnv() string {
-	// 获取环境变量
+	// Extract environment variable
 	env := os.Getenv(key)
 	if len(env) > 0 {
 		return env
 	}
-	// 向上递归查找 .env 文件
+	// Upward recursive search for .env files
 	curPath, err := os.Executable()
 	panicErr(err)
 	curDir := filepath.Dir(curPath)

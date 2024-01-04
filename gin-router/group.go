@@ -193,12 +193,12 @@ func (dg *decoratorGroup) staticFileHandler(relativePath string, handler gin.Han
 	return dg.returnObj()
 }
 
-// !!!暂无法代理
+// !!! Unable to proxy
 func (dg *decoratorGroup) Static(relativePath, root string) iDecoratorRoutes {
 	return dg.StaticFS(relativePath, gin.Dir(root, false))
 }
 
-// !!!暂无法代理
+// !!! Unable to proxy
 func (dg *decoratorGroup) StaticFS(relativePath string, fs http.FileSystem) iDecoratorRoutes {
 	panic("URL parameters can not be used when serving a static folder")
 }

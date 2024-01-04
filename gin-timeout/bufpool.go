@@ -35,7 +35,7 @@ func (p *bufPool) getBuf() *bytes.Buffer {
 
 func (p *bufPool) putBuf(buffer *bytes.Buffer) {
 	cap := buffer.Cap()
-	if cap <= p.maxSize && cap >= p.size { // 防止超大和过小 []byte 入池
+	if cap <= p.maxSize && cap >= p.size { // Prevents oversize and undersize []byte pooling
 		buffer.Reset()
 		p.pool.Put(buffer)
 	}

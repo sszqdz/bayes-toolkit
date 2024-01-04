@@ -1,4 +1,4 @@
-// References
+// Inspired by these projects:
 // http.TimeoutHandler()
 // https://github.com/vearne/gin-timeout
 // https://github.com/gin-contrib/timeout
@@ -86,7 +86,7 @@ func Timeout(opts ...Option) gin.HandlerFunc {
 		case <-ctx.Done():
 			tw.mu.Lock()
 			defer tw.mu.Unlock()
-			// 再次探测正常业务逻辑是否已经走完，走完表示一定已经 write，因此走正常处理流程
+			// Detect again whether the normal business logic has been completed, which means that it must have been written to response, and therefore go through the normal processing flow
 			if finish.Load() {
 				handleFinish(tw)
 				bufPool.putBuf(tw.buf)
@@ -104,8 +104,7 @@ func Timeout(opts ...Option) gin.HandlerFunc {
 			tw.status = gtx.Writer.Status()
 			tw.size = gtx.Writer.Size()
 			tw.err = ctx.Err()
-			// If timeout happen, the buffer and the copy of Context cannot be cleared actively,
-			// but wait for the GC to recycle.
+			// If a timeout occurs, the buffer and the copy of Context cannot be actively cleared; instead, they must wait for the GC to recycle them
 		case <-finishChan:
 			tw.mu.Lock()
 			defer tw.mu.Unlock()

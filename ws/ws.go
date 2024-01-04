@@ -58,7 +58,7 @@ func WrapConn[T any](identifier T, conn *websocket.Conn, writeChanSize int) *Con
 	c.SetWriteErrHandler(nil)
 	c.SetOnClosingHandler(nil)
 
-	// 接管 websocket SetCloseMessageHandler、SetPingMessageHandler
+	// Take over SetCloseMessageHandler, SetPingMessageHandler of gorilla/websocket
 	c.SetCloseMessageHandler(time.Second, nil)
 	c.SetPingMessageHandler(time.Second, nil)
 
@@ -137,7 +137,7 @@ func (c *Conn[T]) Shutdown() {
 
 	c.mutex.Lock()
 	if !c.isClosed.Load() {
-		//一个chan只能关闭一次，保证此代码只执行一次
+		// A channel can only be closed once, ensuring that this code is only executed once
 		close(c.closeChan)
 		close(c.writeChan)
 		// send close message
@@ -181,7 +181,7 @@ func (c *Conn[T]) Close(closeCode int, text ...string) error {
 
 	c.mutex.Lock()
 	if !c.isClosed.Load() {
-		//一个chan只能关闭一次，保证此代码只执行一次
+		// A channel can only be closed once, ensuring that this code is only executed once
 		close(c.closeChan)
 		close(c.writeChan)
 		// wait for writing remaining messages
@@ -235,7 +235,7 @@ func (c *Conn[T]) WriteControl(messageType int, buffer *bytes.Buffer, timeout ti
 
 func (c *Conn[T]) sendWriteChannel(message any) (err error) {
 	if c.isClosing.Load() {
-		// !!! prevent writing to closed channel without mutex
+		// !!! Prevent writing to closed channel without mutex
 		// This approach does not completely prevent writing to closed channel, but it has higher performance
 		return websocket.ErrCloseSent
 	}
