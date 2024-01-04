@@ -1,4 +1,8 @@
-package randstr
+// Copyright 2024 Moran. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
+
+package rrand
 
 import "math/rand"
 

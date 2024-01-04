@@ -1,4 +1,4 @@
-module bayes-pkg
+module github.com/sszqdz/bayes-toolkit
 
 go 1.21.5
 
