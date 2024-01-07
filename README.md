@@ -2,8 +2,7 @@
 
 🚀 **Bayes Toolkit is a package written in Golang, aimed at facilitating rapid application development for users.**
 
-> **NOTICE❗**
->
+> **NOTICE❗**  
 > This toolkit is currently in the development phase, and more features will be added and enhanced in the future.
 
 ## 👉 Table of Contents
@@ -11,7 +10,7 @@
 - [Installation](#-installation)
 - [Packages](#-packages)
 - [Examples](#-examples)
-- [Repositories Used in Bayes Toolkit](#-repositories-used-in-bayes-toolkit)
+- [Repositories Directly Used in Bayes Toolkit](#-repositories-directly-used-in-bayes-toolkit)
 - [License](#-license)
 
 ## 💻 Installation
@@ -42,9 +41,9 @@ import "github.com/sszqdz/bayes-toolkit"
 
 > 🚧 **Under Construction...**  
 
-## 💖 Repositories Used in Bayes Toolkit
+## 💖 Repositories Directly Used in Bayes Toolkit
 
-**Hey, a big thumbs-up to all open source authors out there!  
+**Hey, a big thumbs-up to all open source contributors out there!  
 Your awesome work makes this boring world more interesting!  
 Respect!**
 
