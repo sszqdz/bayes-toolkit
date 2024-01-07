@@ -130,13 +130,12 @@ func handleFinish(tw *timeoutWriter) {
 	for k, vv := range tw.Header() {
 		dst[k] = vv
 	}
-	// status
-	if !tw.wroteHeader {
-		tw.status = http.StatusOK
-	}
-	tw.ResponseWriter.WriteHeader(tw.status)
-	// write
-	if _, err := tw.ResponseWriter.Write(tw.buf.Bytes()); err != nil {
-		panic(err)
+	// !!! If wroteHeader is true, it means that the handler has already written the response.
+	if tw.wroteHeader {
+		tw.ResponseWriter.WriteHeader(tw.status)
+		// write
+		if _, err := tw.ResponseWriter.Write(tw.buf.Bytes()); err != nil {
+			panic(err)
+		}
 	}
 }
