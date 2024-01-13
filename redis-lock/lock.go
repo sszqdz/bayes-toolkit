@@ -10,8 +10,10 @@ import (
 	"github.com/spf13/cast"
 )
 
-func HardLock(ctx context.Context, expire int32, key string) (bool, error) {
-	result, err := getClient().SetNX(ctx, key, 1, time.Duration(expire)*time.Second).Result()
+// TODO safe lock
+
+func HardLock(ctx context.Context, key string, expiration time.Duration) (bool, error) {
+	result, err := getClient().SetNX(ctx, key, 1, expiration).Result()
 	if err != nil {
 		return false, err
 	}
@@ -28,14 +30,14 @@ func ReleaseHardLock(ctx context.Context, key string) error {
 	return nil
 }
 
-func Lock(ctx context.Context, timeout int32, expire int32, statusKey string, listKey string) error {
+func Lock(ctx context.Context, timeout time.Duration, key string, ex uint) error {
+	listKey := key + listKeySuffix
 	script := ScriptTryLock.GetScript()
 	sha1 := ScriptTryLock.GetHash()
-
-	result, err := getClient().EvalSha(ctx, sha1, []string{statusKey, listKey}, expire).Result()
+	result, err := getClient().EvalSha(ctx, sha1, []string{key, listKey}, ex).Result()
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "NOSCRIPT") {
-			result, err = getClient().Eval(ctx, script, []string{statusKey, listKey}, expire).Result()
+			result, err = getClient().Eval(ctx, script, []string{key, listKey}, ex).Result()
 		}
 		if err != nil {
 			return err
@@ -45,7 +47,7 @@ func Lock(ctx context.Context, timeout int32, expire int32, statusKey string, li
 		// Successfully acquired the lock.
 		return nil
 	}
-	results, err := getClient().BRPop(ctx, time.Duration(timeout)*time.Second, listKey).Result()
+	results, err := getClient().BRPop(ctx, timeout, listKey).Result()
 	if err != nil {
 		if err == redis.Nil { // timeout
 			return errors.New("ACQUIRE LOCK ERR")
@@ -61,14 +63,15 @@ func Lock(ctx context.Context, timeout int32, expire int32, statusKey string, li
 	return errors.New("ACQUIRE LOCK ERR")
 }
 
-func Unlock(ctx context.Context, expire int32, statusKey string, listKey string) error {
+func ReleaseLock(ctx context.Context, key string, ex uint) error {
+	listKey := key + listKeySuffix
 	script := ScriptUnlock.GetScript()
 	sha1 := ScriptUnlock.GetHash()
 
-	_, err := getClient().EvalSha(ctx, sha1, []string{statusKey, listKey}, expire).Result()
+	_, err := getClient().EvalSha(ctx, sha1, []string{key, listKey}, ex).Result()
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "NOSCRIPT") {
-			_, err = getClient().Eval(ctx, script, []string{statusKey, listKey}, expire).Result()
+			_, err = getClient().Eval(ctx, script, []string{key, listKey}, ex).Result()
 		}
 		if err == redis.Nil { // Successfully released the lock.
 			return nil

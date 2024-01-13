@@ -13,24 +13,24 @@ const (
 )
 
 const (
-	scriptTryLock string = `local tryLock = redis.call('set', KEYS[1], '1', 'ex', ARGV[1], 'nx')
+	scriptTryLock string = `local tryLock = redis.call('SET', KEYS[1], '1', 'NX', 'EX', ARGV[1])
 if (tryLock)
 then
-	redis.call('del', KEYS[2])
+	redis.call('DEL', KEYS[2])
 	return 1
 end
-tryLock = redis.call('rpop', KEYS[2]) 
+tryLock = redis.call('RPOP', KEYS[2]) 
 if (tryLock)
 then
 	return 1
 end
 return 0`
 
-	scriptUnlock string = `local locking = redis.call('set', KEYS[1], '1', 'ex', ARGV[1], 'xx')
+	scriptUnlock string = `local locking = redis.call('SET', KEYS[1], '1', 'XX', 'EX', ARGV[1])
 if (locking)
 then
-    redis.call('lpush', KEYS[2], '1')
-    redis.call('expire', KEYS[2], ARGV[1] + 10)
+    redis.call('LPUSH', KEYS[2], '1')
+    redis.call('EXPIRE', KEYS[2], ARGV[1] + 10)
 end`
 )
 
