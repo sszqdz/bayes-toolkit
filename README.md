@@ -54,6 +54,7 @@ Respect!**
 - [![spf13/viper](https://img.shields.io/github/stars/spf13/viper?style=flat&color=blue&labelColor=black&label=spf13/viper)](https://github.com/spf13/viper) **Go configuration with fangs**
 - [![gin-gonic/gin](https://img.shields.io/github/stars/gin-gonic/gin?style=flat&color=blue&labelColor=black&label=gin-gonic/gin)](https://github.com/gin-gonic/gin) **Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.**
 - [![redis/go-redis](https://img.shields.io/github/stars/redis/go-redis?style=flat&color=blue&labelColor=black&label=redis/go-redis)](https://github.com/redis/go-redis) **Redis Go client**
+- [![adrianbrad/queue](https://img.shields.io/github/stars/adrianbrad/queue?style=flat&color=blue&labelColor=black&label=adrianbrad/queue)](https://github.com/adrianbrad/queue) **Go package providing multiple queue implementations. Developed in a thread-safe generic way.**
 - [![sourcegraph/conc](https://img.shields.io/github/stars/sourcegraph/conc?style=flat&color=blue&labelColor=black&label=sourcegraph/conc)](https://github.com/sourcegraph/conc) **Better structured concurrency for go**
 - [![gorilla/websocket](https://img.shields.io/github/stars/gorilla/websocket?style=flat&color=blue&labelColor=black&label=gorilla/websocket)](https://github.com/gorilla/websocket) **Package gorilla/websocket is a fast, well-tested and widely used WebSocket implementation for Go.**
 
