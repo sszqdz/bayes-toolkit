@@ -5,7 +5,6 @@
 package environment
 
 import (
-	"fmt"
 	"os"
 	"sync"
 
@@ -69,9 +68,8 @@ func loadFileConf() *viper.Viper {
 	// Upward recursive search for .env files
 	curDir, err := os.Getwd()
 	panicErr(err)
-	fmt.Println("curDir: " + curDir)
+
 	envFilePath, err := dirr.FindFileInParentDirs(FileName, curDir, Deepth)
-	fmt.Println("envFilePath: " + envFilePath)
 	if os.IsNotExist(err) {
 		return nil
 	}
