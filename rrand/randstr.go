@@ -4,7 +4,7 @@
 
 package rrand
 
-import "math/rand"
+import "math/rand/v2"
 
 const (
 	letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
@@ -14,7 +14,7 @@ const (
 func RandStr(n uint32) string {
 	b := make([]byte, n)
 	for i := range b {
-		b[i] = letters[rand.Int63()%size]
+		b[i] = letters[rand.Int64()%size]
 	}
 	return string(b)
 }
