@@ -8,7 +8,7 @@ require (
 	github.com/gorilla/websocket v1.5.1
 	github.com/json-iterator/go v1.1.12
 	github.com/orcaman/concurrent-map/v2 v2.0.1
-	github.com/redis/go-redis/v9 v9.4.0
+	github.com/redis/go-redis/v9 v9.5.1
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cast v1.6.0
 	github.com/spf13/viper v1.18.2
