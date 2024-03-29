@@ -6,6 +6,7 @@ require (
 	github.com/adrianbrad/queue v1.3.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gorilla/websocket v1.5.1
+	github.com/jinzhu/copier v0.4.0
 	github.com/json-iterator/go v1.1.12
 	github.com/modern-go/reflect2 v1.0.2
 	github.com/orcaman/concurrent-map/v2 v2.0.1
